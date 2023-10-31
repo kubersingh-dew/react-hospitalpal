@@ -1,6 +1,6 @@
 const conn = require("./connection");
 
-async function addReview() {
+async function addReview(req, res) {
     const {u_id, d_id, rating, comment} = req.body;
     let sql =`insert into reviews (u_id,d_id,rating,comments) VALUES(?, ?, ?, ?)`;
     let values = [u_id, d_id, rating, comment];
@@ -14,7 +14,7 @@ async function addReview() {
     });
 }
 
-async function getDoctorReview() {
+async function getDoctorReview(req, res) {
     const {d_id} = req.query;
     let sql =`select * from reviews WHERE d_id=?`;
     let values = [d_id];
