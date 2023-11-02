@@ -33,7 +33,7 @@ async function getData(req, res) {
             return;
         }
         const user = results[0];
-        res.json(user);
+        res.json({ message: 'user found', data: user });
     });
 } 
 
@@ -59,7 +59,7 @@ async function login(req, res) {
             res.status(401).json({ error: 'Invalid email or password' });
             return;
         }
-        res.json({ message: 'Login successful', user });
+        res.status(200).json({ message: 'Login successful', data: user });
     });
 } 
 

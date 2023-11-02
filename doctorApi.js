@@ -5,10 +5,10 @@ async function getAllDoctors(req, res) {
     conn.query(sql, (err, results) => {
         if (err) {
           console.error('Error executing SQL query:', err);
-          res.status(500).send('Internal Server Error');
+          res.status(500).json({ error: 'Internal Server Error' });
           return;
         }
-        res.status(200).json(results);
+        res.status(200).json({ message: 'Api Called Successfully', data: results });
     });
 }
 
@@ -17,10 +17,10 @@ async function getTopDoctors(req, res) {
     conn.query(sql, (err, results) => {
         if (err) {
           console.error('Error executing SQL query:', err);
-          res.status(500).send('Internal Server Error');
+          res.status(500).json({ error: 'Internal Server Error' });
           return;
         }
-        res.status(200).json(results);
+        res.status(200).json({ message: 'Api Called Successfully', data: results });
     });
 }
 
@@ -31,10 +31,10 @@ async function addDoctors(req, res) {
     conn.query(sql, values, (err, results) => {
         if (err) {
           console.error('Error executing SQL query:', err);
-          res.status(500).send('Internal Server Error');
+          res.status(500).json({ error: 'Internal Server Error' });
           return;
         }
-        res.status(201).json({ message: 'Doctor data inserted successfully' });
+        res.status(201).json({ message: 'Doctor data inserted successfully'});
     });
 }
 
@@ -45,10 +45,10 @@ async function getDoctor(req, res) {
     conn.query(sql, values, (err, results) => {
         if (err) {
           console.error('Error executing SQL query:', err);
-          res.status(500).send('Internal Server Error');
+          res.status(500).json({ error: 'Internal Server Error' });
           return;
         }
-        res.status(201).json(results[0]);
+        res.status(201).json({ message: 'Api Called Successfully', data: results[0] });
     });
 }
 
