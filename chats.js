@@ -24,8 +24,18 @@ async function addChat(req, res) {
 
 async function getAllUserChats(req, res) {
     const {u_id} = req.query;
-    let sql =`select c.*,d.name, d.img from chats c left join doctors d on c.d_id=d.id WHERE
-     c.u_id=? GROUP by c.d_id order by c.created_at desc`;
+    let sql =`SELECT c.d_id, c.u_id, c.id AS id, c.created_at AS created_at, 
+    c.send AS send, c.message AS message,
+    d.name, d.img
+    FROM chats c
+    INNER JOIN (
+    SELECT d_id, MAX(created_at) AS max_created_at
+    FROM chats
+    WHERE u_id = ?
+    GROUP BY d_id
+    ) subq ON c.d_id = subq.d_id AND c.created_at = subq.max_created_at
+    LEFT JOIN doctors d ON c.d_id = d.id
+    ORDER BY created_at DESC;`;
     let values = [u_id];
     conn.query(sql, values, (err, results) => {
         if (err) {
